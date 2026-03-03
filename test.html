@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David Ekoja — Software Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #64ffda;
+            --primary-dark: #4fd1c5;
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+            --light: #e6f1ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::selection {
+            background: var(--primary);
+            color: #000;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 25, 47, 0.95);
+            box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--bg-primary);
+            overflow: hidden;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: #000;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -10px rgba(100, 255, 218, 0.3);
+        }
+
+        section {
+            padding: 10rem 2rem 8rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--bg-secondary);
+            padding: 2.5rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px -15px rgba(100, 255, 218, 0.2);
+        }
+
+        .skill-card i {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .experience .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 2rem 3rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-content {
+            position: relative;
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content span {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 4px solid var(--bg-primary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: var(--bg-secondary);
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.5);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px -20px rgba(100, 255, 218, 0.25);
+        }
+
+        .project-img {
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s ease;
+            flex-shrink: 0;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.08);
+        }
+
+        .project-info {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-info h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+        
+        .project-info p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 2.2rem;
+            transition: all 0.4s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-5px) rotate(8deg);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 1024px) {
+            .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline-item, .timeline-item:nth-child(even) {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+            }
+            .timeline::before {
+                left: 30px;
+            }
+            .timeline-dot {
+                left: 20px !important;
+            }
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            .hero p {
+                font-size: 1.3rem;
+            }
+            nav ul {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">David Ekoja</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero" data-aos="fade">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <h1>Hi, I'm <span id="typed"></span></h1>
+            <p>Software Engineer with passion for building scalable, high-performance systems</p>
+            <a href="#about" class="btn">Explore My Work</a>
+        </div>
+    </section>
+
+    <section id="about" data-aos="fade-up">
+        <h2>About Me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>Hi there! I'm David, a Full-Stack Software Engineer passionate about building scalable, secure, and user-centric applications. Proficient in front-end and back-end technologies, I transform complex ideas into reliable digital solutions.</p>
+                <p>To keep pace with evolving tech, I'm upskilling in Artificial Intelligence, leveraging AI to enhance performance, automation, and decision-making.</p>
+                <p>I excel in innovative, problem-solving environments that prioritize continuous learning. My aim is to partner with forward-thinking companies and leaders to create impactful solutions that boost growth and efficiency. I'm also dedicated to discovering technological solutions across industries to advance humanity.</p>
+            </div>
+            <div>
+                <img src="https://source.unsplash.com/random/600x600/?portrait,professional,dark" alt="David Ekoja" style="width:100%; border-radius:16px; box-shadow: 0 20px 40px -15px rgba(100,255,218,0.2);">
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" style="background: var(--bg-secondary);" data-aos="fade-up">
+        <h2>Skills & Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fab fa-js"></i>
+                <h3>JavaScript / TypeScript</h3>
+                <p>React, Next.js, Node.js, Express, Redux, GraphQL, Tailwind CSS, HTML, CSS, JS</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fab fa-python"></i>
+                <h3>Python</h3>
+                <p>Django, FastAPI, Flask, Data Processing, Automation, BioPython</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-cloud"></i>
+                <h3>Cloud & DevOps</h3>
+                <p>AWS (EC2, Lambda, ECS), Docker, Kubernetes, CI/CD</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-database"></i>
+                <h3>Databases</h3>
+                <p>PostgreSQL, MongoDB, Redis, DynamoDB, SQL & NoSQL</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="500">
+                <i class="fas fa-robot"></i>
+                <h3>Machine Learning / Deep Learning</h3>
+                <p>PyTorch, TensorFlow, Keras, Generative AI, Computer Vision</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="600">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile App Development</h3>
+                <p>React Native, Swift, Kotlin</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="700">
+                <i class="fas fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Full-Stack Web Dev, DSA (Data Structures & Algorithms)</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="800">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Data Science & Management</h3>
+                <p>Data Management, Science, Visualization</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="900">
+                <i class="fas fa-tasks"></i>
+                <h3>Project Management</h3>
+                <p>Agile Methodologies, Team Leadership</p>
+            </div>
+        </div>
+        <h2 style="margin-top: 5rem;">Tools Used</h2>
+        <div class="skills-grid">
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-code"></i>
+                <h3>Development Tools</h3>
+                <p>Visual Studio Code, Jupyter Notebook, Android Studio, Anaconda</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fab fa-git-alt"></i>
+                <h3>Version Control</h3>
+                <p>Bitbucket, GitLab, GitHub</p>
+            </div>
+            <div class="skill-card" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-rocket"></i>
+                <h3>Other Tools</h3>
+                <p>Antigravity</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" data-aos="fade-up">
+        <h2>Professional Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <h3>Trinary tree</h3>
+                    <h3>Founder & CEO</h3>
+                    <span>2025 — Present</span>
+                    <p>As Founder & CEO of Trinary Tree, an emerging pre-launch SaaS company, I lead scalable product architecture, oversee development operations, and build a high-performance engineering team focused on delivering globally scalable, production-grade technology.
+</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-content">
+                    <h3>Eden Life Care Pharmacy</h3>
+                    <h3>Software Engineer II</h3>
+                    <span>2023 — 2025</span>
+                    <p>I oversee software strategy and digital operations within pharmaceutical organizations, managing system integrations, regulatory-facing platforms, and cross-agency technology interactions to drive operational efficiency and organizational advancement.
+</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" data-aos="fade-up">
+        <h2>Selected Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?banking,dark');"></div>
+                <div class="project-info">
+                    <h3>Eden Bank (Fintech Full-Stack)</h3>
+                    <p>Engineered secure banking platform using Node.js/Express + SQLite for account mgmt and Stripe integrations handling 5k simulated users with 99.9% txn uptime and 30% faster auth via JWT.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/eden-bank" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://eden-bank-demo.com" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?stock,market');"></div>
+                <div class="project-info">
+                    <h3>Stock Crusher (ML Prediction)</h3>
+                    <p>Developed time-series forecasting model leveraging PyTorch/Keras on Yahoo Finance data with LSTM layers achieving 92% accuracy on stock volatility predictions, reducing mock portfolio risk by 25%.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/stock-crusher" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://stock-crusher-demo.com" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?analytics,finance,chart');"></div>
+                <div class="project-info">
+                    <h3>Stock Viewer (Market Intelligence)</h3>
+                    <p>Real-time tracking and analysis of leading companies. Monitor market trends, compare performance, and make informed investment decisions using consistent measurement of XYZ metrics.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/stock-viewer" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://stock-viewer-demo.com" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?weather,app,sky');"></div>
+                <div class="project-info">
+                    <h3>Sky Sight (AI Weather)</h3>
+                    <p>Intelligent, cross-platform app delivering hyper-local forecasts. Features <strong>Weather Man</strong> (Python/TF) for micro-climate refinement and <strong>Blueskies AI</strong> (Kotlin/Swift) for &lt;100ms on-device inference via TFLite.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/sky-sight" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://sky-sight-demo.com" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?ai,chatbot');"></div>
+                <div class="project-info">
+                    <h3>L.I.A.M AI (Chatbot)</h3>
+                    <p>Built conversational AI agent with RAG pipelines in LangChain + vector DBs for domain-specific queries boosting response relevance by 40% in 1k test interactions while enforcing ethical guardrails.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/liam-ai" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://liam-ai-demo.com" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?social,network');"></div>
+                <div class="project-info">
+                    <h3>Bingram (Social Networking)</h3>
+                    <p>Architected scalable social feed app via Flutter/Dart frontend + Firebase backend with real-time WebSockets supporting 2k concurrent users and 15% engagement lift through AI moderation (Alfred integration).</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/bingram" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://bingram-demo.com" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="700">
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?video,chat');"></div>
+                <div class="project-info">
+                    <h3>Eye to Eye (Social Networking)</h3>
+                    <p>Created peer-to-peer networking tool using React Native + Socket.io for video chats enabling seamless 500-user sessions with &lt;100ms latency and 20% retention via personalized recs.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/eye-to-eye" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://eye-to-eye-demo.com" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="800">
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?ecommerce,tickets');"></div>
+                <div class="project-info">
+                    <h3>Tic-Cart (E-Commerce)</h3>
+                    <p>Launched event ticketing platform with Next.js + Stripe Connect for payouts and inventory mgmt processing $10k in simulated sales with zero fraud via ML anomaly detection.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/yourusername/tic-cart" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://tic-cart-demo.com" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-aos="fade-up" data-aos-delay="900">
+                <div class="project-img" style="background-image: url('https://source.unsplash.com/random/600x400/?biology,ml');"></div>
+                <div class="project-info">
+                    <h3>Bio-Tester (ML Predictive Intelligence)</h3>
+                    <p>Designed predictive ML system for clinical trials using RDKit/BioPython + PyTorch on TDC/ChEMBL datasets with graph neural nets attaining 85% accuracy in drug efficacy forecasts.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/Dave-eko-2001/Bio-Tester-.git" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">GitHub</a>
+                        <a href="https://bio-tester.vercel.app/" class="btn" style="padding:0.8rem 1.5rem; font-size:1rem;">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="background: var(--bg-secondary);" data-aos="fade-up">
+        <h2>Get In Touch</h2>
+        <div class="contact-grid">
+            <div>
+                <p style="font-size:1.2rem; color:var(--text-secondary);">I'm always open to new opportunities, collaborations, or just interesting conversations. Feel free to reach out!</p>
+                <div class="social-links">
+                    <a href="https://github.com/yourusername"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/yourusername"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/yourusername"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/yourusername"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="6" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 David Ekoja. Built with passion and clean code.</p>
+        <div class="social-links" style="margin-top:1rem;">
+            <a href="https://github.com/yourusername"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/yourusername"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://twitter.com/yourusername"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com/yourusername"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // AOS Initialization
+        AOS.init({
+            duration: 1200,
+            once: true,
+            easing: 'ease-out'
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // Typed.js
+        new Typed('#typed', {
+            strings: ['David Ekoja', ' Software Engineer', 'Full-Stack Architect', 'ML Engineer' , 'The Goal is Build , Scale , and Thrive'],
+            typeSpeed: 60,
+            backSpeed: 40,
+            loop: true,
+            smartBackspace: true
+        });
+
+        // Particles.js (fluid blue network animation)
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#64ffda' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#64ffda',
+                    opacity: 0.3,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 200, line_linked: { opacity: 0.7 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
